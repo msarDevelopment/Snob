@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MapsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSearchThisArea"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_this_area"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:background="@drawable/button_search_this_area_background"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:includeFontPadding="false"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="12dp"/>
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/segBtnType"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:checkedButton="@+id/btnRestaurants"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="48dp">
+            <Button
+                style="@style/ToggleButtonGroupStyle"
+                android:id="@+id/btnRestaurants"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/place_type_restaurants"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                app:strokeColor="@android:color/darker_gray"
+                />
+            <Button
+                style="@style/ToggleButtonGroupStyle"
+                android:id="@+id/btnCafe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:text="@string/place_type_cafes"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                app:strokeColor="@android:color/darker_gray"
+                />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/avLoadingAnimation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_rawRes="@raw/like_a_sir_animation"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@color/white"
+        android:alpha="0.9"/>
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        app:behavior_hideable="true"
+        app:behavior_skipCollapsed="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/betshopBottomSheetLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="32dp"
+            android:background="@drawable/bottom_sheet_background"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/ivHandle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_rectangle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivClose"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_close"
+                app:layout_constraintTop_toBottomOf="@+id/ivHandle"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"/>
+
+            <ImageView
+                android:id="@+id/ivBusiness"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_business_restaurant"
+                app:layout_constraintTop_toBottomOf="@+id/ivHandle"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="32dp"/>
+
+            <TextView
+                android:id="@+id/tvBusiness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Restaurant"
+                app:layout_constraintTop_toTopOf="@+id/ivBusiness"
+                app:layout_constraintStart_toEndOf="@+id/ivBusiness"
+                app:layout_constraintEnd_toStartOf="@id/ivClose"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constrainedWidth="true"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/black"/>
+
+            <ImageView
+                android:id="@+id/ivAddress"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_place"
+                app:layout_constraintTop_toBottomOf="@id/tvBusiness"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="32dp"/>
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Address"
+                app:layout_constraintTop_toTopOf="@+id/ivAddress"
+                app:layout_constraintBottom_toBottomOf="@+id/ivAddress"
+                app:layout_constraintStart_toEndOf="@+id/ivAddress"
+                app:layout_constraintEnd_toStartOf="@id/ivClose"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constrainedWidth="true"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/black"/>
+
+            <ImageView
+                android:id="@+id/ivRating"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_star"
+                app:layout_constraintTop_toBottomOf="@id/ivAddress"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="32dp"/>
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Open tomorrow at 08:00-16:00"
+                app:layout_constraintTop_toTopOf="@+id/ivRating"
+                app:layout_constraintBottom_toBottomOf="@+id/ivRating"
+                app:layout_constraintStart_toEndOf="@+id/ivRating"
+                app:layout_constraintEnd_toStartOf="@id/ivClose"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/black"/>
+
+            <ImageView
+                android:id="@+id/ivNumberOfRatings"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_people"
+                app:layout_constraintTop_toTopOf="@+id/ivRating"
+                app:layout_constraintBottom_toBottomOf="@+id/ivRating"
+                app:layout_constraintStart_toEndOf="@+id/tvRating"
+                app:layout_constraintEnd_toStartOf="@id/ivClose"/>
+
+            <TextView
+                android:id="@+id/tvNumberOfRatings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Open tomorrow at 08:00-16:00"
+                app:layout_constraintTop_toTopOf="@+id/ivRating"
+                app:layout_constraintBottom_toBottomOf="@+id/ivRating"
+                app:layout_constraintStart_toEndOf="@+id/ivNumberOfRatings"
+                app:layout_constraintEnd_toStartOf="@id/ivClose"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/black"/>
+
+            <Button
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:id="@+id/btnRoute"
+                app:layout_constraintTop_toBottomOf="@+id/tvRating"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/route_label"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
